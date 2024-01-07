@@ -1,22 +1,35 @@
 import React, { useCallback, useState } from "react";
 import { loginStateTypes } from "../types";
 import { validateEmail, validatePassword } from "modules/validators";
+import { loginActions as loginReduxActions } from "redux/login";
+import { useDispatch } from "react-redux";
+import { useEventCallback } from "modules/common/hooks";
+
+const initialState = {
+  email: {
+    value: "",
+    isValid: false,
+    showError: false,
+  },
+  password: {
+    value: "",
+    isValid: false,
+    showError: false,
+  },
+};
 
 const useLogin = () => {
-  const [state, setState] = useState<loginStateTypes>({
-    email: {
-      value: "",
-      isValid: false,
-      showError: false,
-    },
-    password: {
-      value: "",
-      isValid: false,
-      showError: false,
-    },
-  });
+  // hooks
+  const [state, setState] = useState<loginStateTypes>(initialState);
+  const dispatch = useDispatch();
 
-  const handleInputValueChange = useCallback(
+  /*
+     =================================================================
+     --------------------- login Methods start -----------------------
+     =================================================================
+  */
+
+  const handleInputValueChange = useEventCallback(
     (key: keyof loginStateTypes, value: string) => {
       setState((prevState) => ({
         ...prevState,
@@ -25,14 +38,12 @@ const useLogin = () => {
           value,
         },
       }));
-    },
-    []
+    }
   );
 
-  const handleInputValidationOnBlur = useCallback(
+  const handleInputValidationOnBlur = useEventCallback(
     (field: keyof loginStateTypes, value: string) => {
       let isValid = false;
-      debugger;
       switch (field) {
         case "email":
           isValid = validateEmail(value);
@@ -61,11 +72,21 @@ const useLogin = () => {
         default:
           break;
       }
-    },
-    []
+    }
   );
 
+  const handleLogin = useEventCallback(() => {
+    dispatch(loginReduxActions.processUserLogin());
+  });
+
+  /*
+     =================================================================
+     --------------------- login Methods End -------------------------
+     =================================================================
+  */
+
   const loginActions = {
+    handleLogin,
     handleInputValueChange,
     handleInputValidationOnBlur,
   };

@@ -1,19 +1,20 @@
 {
-  "name": "reactjs-vite-tailwindcss-boilerplate",
-  "description": "This is a boilerplate build with Vite, React 18, TypeScript, Vitest, Testing Library, TailwindCSS 3, Eslint and Prettier.",
+  "name": "twitch.tv",
+  "description": "",
   "version": "0.1.0",
   "private": true,
   "author": {
-    "name": "João Paulo Moraes",
-    "email": "joaopaulomoraes@outlook.com",
-    "url": "https://github.com/joaopaulomoraes"
+    "name": "Hamza khan",
+    "email": "hamzak80800@gmail.com",
+    "url": "https://github.com/h4mxa"
   },
   "bugs": {
-    "url": "https://github.com/joaopaulomoraes/reactjs-vite-tailwindcss-boilerplate/issues",
-    "email": "joaopaulomoraes@outlook.com"
+    "url": "https://github.com/H4mxa/twitch-tv/issues",
+    "email": "hamzak80800@gmail.com"
   },
   "scripts": {
     "dev": "vite",
+    "start:local:prod": "vite --mode production",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test": "vitest",
@@ -22,9 +23,14 @@
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1"
+    "react-redux": "^9.0.4",
+    "react-router-dom": "^6.21.1",
+    "redux-injectors": "^2.1.0",
+    "redux-persist": "^6.0.0",
+    "redux-saga": "^1.3.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.6",
