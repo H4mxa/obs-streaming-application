@@ -12,7 +12,7 @@ interface ILogin {
 }
 
 const Login: React.FC<ILogin> = ({ switchAuthHandler }) => {
-  const { state, loginActions } = useLogin();
+  const { state, loginActions, isButtonDisabled } = useLogin();
 
   return (
     <div className="login-container">
@@ -46,7 +46,7 @@ const Login: React.FC<ILogin> = ({ switchAuthHandler }) => {
             loginActions.handleInputValidationOnBlur("password", value)
           }
         />
-        <button disabled={!state.password.isValid || !state.email.isValid}>
+        <button disabled={isButtonDisabled} onClick={loginActions.handleLogin}>
           Log in
         </button>
       </form>

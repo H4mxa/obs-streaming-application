@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { SyntheticEvent, useCallback, useState } from "react";
 import { registerStateTypes } from "../types";
 import {
   passwordConfValidation,
@@ -6,6 +6,9 @@ import {
   validatePassword,
   validateUsername,
 } from "modules/validators";
+import { useEventCallback } from "modules/common/hooks";
+import { useDispatch } from "react-redux";
+import { registerActions as registerReduxActions } from "redux/register";
 
 const initialState = {
   username: {
@@ -31,9 +34,17 @@ const initialState = {
 };
 
 const useRegister = () => {
+  // hooks
   const [state, setState] = useState<registerStateTypes>(initialState);
+  const dispatch = useDispatch();
 
-  const handleInputValueChange = useCallback(
+  /*
+     =================================================================
+     --------------------- Register Methods start --------------------
+     =================================================================
+  */
+
+  const handleInputValueChange = useEventCallback(
     (key: keyof registerStateTypes, value: string) => {
       setState((prevState) => ({
         ...prevState,
@@ -42,11 +53,10 @@ const useRegister = () => {
           value,
         },
       }));
-    },
-    []
+    }
   );
 
-  const handleInputValidationOnBlur = useCallback(
+  const handleInputValidationOnBlur = useEventCallback(
     (field: keyof registerStateTypes, value: string) => {
       let isValid = false;
       switch (field) {
@@ -98,11 +108,22 @@ const useRegister = () => {
         default:
           break;
       }
-    },
-    []
+    }
   );
 
+  const handleLogin = useEventCallback((event: SyntheticEvent) => {
+    event.preventDefault();
+    const payload = {
+      email: state.email.value,
+      password: state.password.value,
+      username: state.username.value,
+    };
+
+    dispatch(registerReduxActions.processRegister(payload));
+  });
+
   const registerActions = {
+    handleLogin,
     handleInputValueChange,
     handleInputValidationOnBlur,
   };
@@ -110,6 +131,11 @@ const useRegister = () => {
   return {
     state,
     registerActions,
+    isButtonDisabled:
+      !state.password.isValid ||
+      !state.email.isValid ||
+      !state.username.isValid ||
+      !state.passwordConf.isValid,
   };
 };
 

@@ -1,3 +1,3 @@
 export const API_URLS = {
-  login: "/auth/login",
+  register: "/auth/register",
 } as const;

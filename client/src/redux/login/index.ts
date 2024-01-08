@@ -1,4 +1,4 @@
-import { ILoginState } from "./types";
+import { ILoginState, loginPayload } from "./types";
 import { createSlice } from "utils/@reduxjs/toolkit";
 import { useInjectReducer, useInjectSaga } from "utils/redux-injectors";
 import loginSaga from "./sagas";
@@ -13,7 +13,7 @@ export const slice = createSlice({
   name: "login",
   initialState,
   reducers: {
-    processUserLogin: (state) => {
+    processUserLogin: (state, { payload }: loginPayload) => {
       state.loading = true;
     },
     processUserLoginSuccess: (state) => {

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { loginStateTypes } from "../types";
 import { validateEmail, validatePassword } from "modules/validators";
 import { loginActions as loginReduxActions } from "redux/login";
@@ -75,8 +75,14 @@ const useLogin = () => {
     }
   );
 
-  const handleLogin = useEventCallback(() => {
-    dispatch(loginReduxActions.processUserLogin());
+  const handleLogin = useEventCallback((event: SyntheticEvent) => {
+    event.preventDefault();
+    const payload = {
+      email: state.email.value,
+      password: state.password.value,
+    };
+
+    dispatch(loginReduxActions.processUserLogin(payload));
   });
 
   /*
@@ -94,6 +100,7 @@ const useLogin = () => {
   return {
     state,
     loginActions,
+    isButtonDisabled: !state.password.isValid || !state.email.isValid,
   };
 };
 

@@ -1,22 +1,22 @@
 import { StrictEffect, call, put, takeLatest } from "redux-saga/effects";
-import { loginActions } from ".";
 import { LoginService } from "services/login";
 import { navigateTo } from "app/route/utils";
-import { loginPayload } from "./types";
+import { registerActions } from ".";
+import { registerPayload } from "./types";
+import { RegisterService } from "services/register";
 
 interface body {
   email: string;
   password: string;
 }
 
-function* watchUserLoginProcess(action: {
-  payload: loginPayload["payload"];
+function* watchRegisterProcess(action: {
+  payload: registerPayload;
 }): Generator<StrictEffect, void, any> {
   try {
-    const result = yield call(LoginService.doLogin, action.payload);
+    const result = yield call(RegisterService.register, action.payload);
     if (result && result.status >= 200 && result.status < 300) {
-      yield put(loginActions.processUserLoginSuccess());
-
+      yield put(registerActions.processRegisterSuccess());
       navigateTo("/dashboard");
     }
   } catch (error) {
@@ -26,7 +26,7 @@ function* watchUserLoginProcess(action: {
 
 export default function* () {
   yield takeLatest<any>(
-    loginActions.processUserLogin.type,
-    watchUserLoginProcess
+    registerActions.processRegister.type,
+    watchRegisterProcess
   );
 }

@@ -8,13 +8,16 @@ import {
   passwordValidationMessage,
   usernameValidationMessage,
 } from "modules/validators";
+import { useRegisterSlice } from "redux/register";
 
 interface IRegister {
   switchAuthHandler: () => void;
 }
 
 const Register: React.FC<IRegister> = ({ switchAuthHandler }) => {
-  const { state, registerActions } = useRegister();
+  useRegisterSlice();
+  const { state, registerActions, isButtonDisabled } = useRegister();
+
   return (
     <div className="register-container">
       <Logo text="Sign up to Twitch" />
@@ -76,12 +79,8 @@ const Register: React.FC<IRegister> = ({ switchAuthHandler }) => {
           }
         />
         <button
-          disabled={
-            !state.password.isValid ||
-            !state.email.isValid ||
-            !state.username.isValid ||
-            !state.passwordConf.isValid
-          }
+          disabled={isButtonDisabled}
+          onClick={registerActions.handleLogin}
         >
           Register in
         </button>
