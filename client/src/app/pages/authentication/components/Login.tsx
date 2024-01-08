@@ -46,7 +46,7 @@ const Login: React.FC<ILogin> = ({ switchAuthHandler }) => {
             loginActions.handleInputValidationOnBlur("password", value)
           }
         />
-        <button disabled={isButtonDisabled} onClick={loginActions.handleLogin}>
+        <button disabled={!isButtonDisabled} onClick={loginActions.handleLogin}>
           Log in
         </button>
       </form>

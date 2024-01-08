@@ -5,6 +5,16 @@ import jwt from "jsonwebtoken";
 import { getToken } from "../../utils/env";
 
 export class LoginController {
+  private static instance: LoginController;
+  private constructor() {}
+
+  public static getInstance(): LoginController {
+    if (!LoginController.instance) {
+      LoginController.instance = new LoginController();
+    }
+    return LoginController.instance;
+  }
+
   public async loginUser(request: Request, response: Response) {
     try {
       const { email, password } = request.body;

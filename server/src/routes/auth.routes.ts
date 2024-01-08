@@ -5,8 +5,8 @@ import ExpressValidation from "express-joi-validation";
 import Joi from "joi";
 
 const router: Router = express.Router();
-const loginController: LoginController = new LoginController();
-const registerController: RegisterController = new RegisterController();
+const loginController: LoginController = LoginController.getInstance();
+const registerController: RegisterController = RegisterController.getInstance();
 
 const validator = ExpressValidation.createValidator();
 
