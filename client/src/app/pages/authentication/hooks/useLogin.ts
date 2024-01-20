@@ -8,12 +8,12 @@ import { useEventCallback } from "modules/common/hooks";
 const initialState = {
   email: {
     value: import.meta.env.MODE === "development" ? "h4mxa80800@gmail.com" : "",
-    isValid: import.meta.env.MODE === "development" ? true : false,
+    isValid: import.meta.env.MODE === "development" ? false : true,
     showError: false,
   },
   password: {
     value: import.meta.env.MODE === "development" ? "123456" : "",
-    isValid: import.meta.env.MODE === "development" ? true : false,
+    isValid: import.meta.env.MODE === "development" ? false : true,
     showError: false,
   },
 };

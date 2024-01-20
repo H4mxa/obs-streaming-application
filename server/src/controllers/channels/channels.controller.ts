@@ -53,4 +53,35 @@ export class ChannelsController {
       return response.status(500).send("Something went wrong");
     }
   }
+
+  public async getChannels(_request: Request, response: Response) {
+    try {
+      const user: any = await User.find(
+        {},
+        {
+          channel: 1,
+          username: 1,
+        }
+      ).populate("channel");
+
+      const channels = user
+        // .filter((u: any) => u.channel.isActive)
+        .map((_user: any) => {
+          return {
+            id: _user.channel._id,
+            title: _user.channel.title,
+            avatarUrl: _user.channel.avatarUrl,
+            isOnline: false,
+            username: _user.username,
+          };
+        });
+
+      return response.json({
+        channels,
+      });
+    } catch (err) {
+      logger.error(err);
+      return response.status(500).send("Something went wrong");
+    }
+  }
 }

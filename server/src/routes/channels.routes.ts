@@ -18,4 +18,6 @@ router.get(
   channelController.getChannelDetails
 );
 
+router.get("/", channelController.getChannels);
+
 export const channelsRouter: Router = router;
