@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import userModel from "../../models/user/user.model";
 import { hashPassword } from "../../utils/methods";
 import jwt from "jsonwebtoken";
-import { getToken } from "../../utils/env";
+import { getTokenKey } from "../../utils/env";
 
 export class LoginController {
   private static instance: LoginController;
@@ -31,7 +31,7 @@ export class LoginController {
             userId: user._id,
             email,
           },
-          getToken(),
+          getTokenKey(),
           {
             expiresIn: "8h",
           }

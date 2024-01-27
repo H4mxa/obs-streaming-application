@@ -9,7 +9,7 @@ export const getPort = () => getEnvVar<number>("PORT", "number");
 export const getNodeEnv = () => getEnvVar<string>("NODE_ENV", "string");
 export const getCorsOrigin = () => getEnvVar<string>("CORS_ORIGIN", "string");
 export const getMongoURI = () => getEnvVar<string>("MONGO_URI", "string");
-export const getToken = () => getEnvVar<string>("TOKEN_KEY", "string");
+export const getTokenKey = () => getEnvVar<string>("TOKEN_KEY", "string");
 
 function getEnvVar<T extends string | number>(
   key: string,

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import userModel from "../../models/user/user.model";
 import jwt from "jsonwebtoken";
-import { getToken } from "../../utils/env";
+import { getTokenKey } from "../../utils/env";
 import { hashPassword } from "../../utils/methods";
 import channel from "../../models/channel/channel.model";
 
@@ -43,7 +43,7 @@ export class RegisterController {
           userId: user._id,
           email,
         },
-        getToken(),
+        getTokenKey(),
         {
           expiresIn: "8h",
         }
