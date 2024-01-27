@@ -10,7 +10,7 @@ const { Schema } = mongoose;
 const channelSchema = new Schema({
   isActive: { type: Boolean, default: false },
   title: { type: String, default: DEFAULT_CHANNEL_TITLE },
-  descriptions: { type: String, default: DEFAULT_CHANNEL_DESCRIPTION },
+  description: { type: String, default: DEFAULT_CHANNEL_DESCRIPTION },
   avatarUrl: { type: String, default: "none" },
   streamKey: { type: String, default: uuid() },
   messages: {

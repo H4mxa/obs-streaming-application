@@ -25,7 +25,7 @@ export class ChannelsController {
         return response.status(400).send("Invalid argument");
       }
 
-      if (!channel || channel.isActive) {
+      if (!channel || !channel.isActive) {
         return response.status(404).send("Channel not found");
       }
 
@@ -43,7 +43,7 @@ export class ChannelsController {
       return response.status(200).json({
         id: channel._id,
         title: channel.title,
-        description: channel.descriptions,
+        description: channel.description,
         username: user?.username,
         isOnline,
         streamUrl,
@@ -65,7 +65,7 @@ export class ChannelsController {
       ).populate("channel");
 
       const channels = user
-        // .filter((u: any) => u.channel.isActive)
+        .filter((u: any) => u.channel.isActive)
         .map((_user: any) => {
           return {
             id: _user.channel._id,
