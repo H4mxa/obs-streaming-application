@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import ExpressValidation from "express-joi-validation";
 import Joi from "joi";
 import { ChannelsController } from "../controllers/channels/channels.controller";
+import { verifyToken } from "../middleware/authentication";
 
 const router = express.Router();
 const channelController = ChannelsController.getInstance();
@@ -11,6 +12,15 @@ const channelDetailsSchema = Joi.object({
 });
 
 const validator = ExpressValidation.createValidator({});
+
+router.get("/followed", verifyToken, channelController.getFollowedChannels);
+
+router.post(
+  "/follow",
+  verifyToken,
+  validator.body(channelDetailsSchema),
+  channelController.postFollowChannel
+);
 
 router.get(
   "/:channelId",

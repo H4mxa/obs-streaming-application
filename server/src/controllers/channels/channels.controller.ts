@@ -2,6 +2,12 @@ import { Request, Response } from "express";
 import Channel from "../../models/channel/channel.model";
 import User from "../../models/user/user.model";
 import { logger } from "../../server";
+import channelModel from "../../models/channel/channel.model";
+import userModel from "../../models/user/user.model";
+
+interface IPostFollowChannelRequest extends Request {
+  user?: any;
+}
 
 export class ChannelsController {
   private static instance: ChannelsController;
@@ -82,6 +88,80 @@ export class ChannelsController {
     } catch (err) {
       logger.error(err);
       return response.status(500).send("Something went wrong");
+    }
+  }
+
+  public async postFollowChannel(
+    request: IPostFollowChannelRequest,
+    response: Response
+  ) {
+    try {
+      const { userId } = request.user;
+
+      const { channelId } = request.body;
+
+      const userData = await User.findById(userId, {
+        followedChannels: 1,
+      });
+
+      const isChannelExist = await channelModel.findById(channelId);
+
+      if (!isChannelExist) {
+        return response.status(404).json({
+          success: false,
+          message: "Channel doesn't exist",
+        });
+      }
+
+      if (userData?.followedChannels.includes(channelId)) {
+        return response.status(400).json({
+          success: false,
+          message: "You are already following this channel",
+        });
+      }
+
+      userData?.followedChannels.push(channelId);
+
+      await userData?.save();
+
+      return response.status(200).json({
+        success: true,
+        message: "Channel followed successfully",
+      });
+    } catch (err) {
+      logger.error(err);
+      return response.status(500).json({
+        success: false,
+        message: "Something went wrong",
+      });
+    }
+  }
+
+  public async getFollowedChannels(
+    request: IPostFollowChannelRequest,
+    response: Response
+  ) {
+    try {
+      const { userId } = request.user;
+
+      const userData = await userModel.findById(userId, {
+        followedChannels: 1,
+      });
+
+      console.log("===? userData ===??", userData);
+
+      return response.status(200).json({
+        success: true,
+        data: {
+          followedChannels: userData?.followedChannels,
+        },
+      });
+    } catch (err) {
+      logger.error(err);
+      return response.status(500).json({
+        success: false,
+        message: "Error occurred when fetching followed channels",
+      });
     }
   }
 }
