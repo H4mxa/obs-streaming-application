@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "./Logo";
-import AuthInput from "./AuthInput";
+import Input from "../../../../modules/common/components/Input";
 import useRegister from "../hooks/useRegister";
 import {
   emailValidationMessage,
@@ -22,7 +22,7 @@ const Register: React.FC<IRegister> = ({ switchAuthHandler }) => {
     <div className="register-container">
       <Logo text="Sign up to Twitch" />
       <form className="auth-form">
-        <AuthInput
+        <Input
           field="email"
           label="Email"
           type="text"
@@ -36,7 +36,7 @@ const Register: React.FC<IRegister> = ({ switchAuthHandler }) => {
             registerActions.handleInputValidationOnBlur("email", value)
           }
         />
-        <AuthInput
+        <Input
           field="username"
           label="Username"
           type="text"
@@ -50,7 +50,7 @@ const Register: React.FC<IRegister> = ({ switchAuthHandler }) => {
             registerActions.handleInputValidationOnBlur("username", value)
           }
         />
-        <AuthInput
+        <Input
           field="password"
           label="Password"
           type="password"
@@ -64,7 +64,7 @@ const Register: React.FC<IRegister> = ({ switchAuthHandler }) => {
             registerActions.handleInputValidationOnBlur("password", value)
           }
         />
-        <AuthInput
+        <Input
           field="passwordConf"
           label="Password confirmation"
           type="password"

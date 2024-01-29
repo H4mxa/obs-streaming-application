@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "./Logo";
-import AuthInput from "./AuthInput";
+import Input from "../../../../modules/common/components/Input";
 import useLogin from "../hooks/useLogin";
 import {
   emailValidationMessage,
@@ -18,7 +18,7 @@ const Login: React.FC<ILogin> = ({ switchAuthHandler }) => {
     <div className="login-container">
       <Logo text="Login to Twitch" />
       <form className="auth-form">
-        <AuthInput
+        <Input
           field="email"
           label="Email"
           type="email"
@@ -32,7 +32,7 @@ const Login: React.FC<ILogin> = ({ switchAuthHandler }) => {
             loginActions.handleInputValidationOnBlur("email", value)
           }
         />
-        <AuthInput
+        <Input
           field="password"
           label="Password"
           type="password"

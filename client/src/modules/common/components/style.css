@@ -1,0 +1,9 @@
+.auth-form-label {
+  width: 410px;
+  font-weight: 500;
+}
+
+.auth-form-validation-message {
+  width: 400px;
+  color: red;
+}

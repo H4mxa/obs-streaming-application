@@ -1,4 +1,7 @@
+import { navigateTo } from "app/route/utils";
 import Logo from "assets/logoPlaceholder.svg";
+import { STORAGE_KEY } from "modules/common/constants";
+import { Navigate } from "react-router-dom";
 
 const NavLogo = () => {
   return (
@@ -31,7 +34,13 @@ const Navbar = () => {
         <NavButton text="Login" onClickHandler={() => {}} />
         <div>
           <NavButton text="My Account" onClickHandler={() => {}} />
-          <NavButton text="Logout" onClickHandler={() => {}} />
+          <NavButton
+            text="Logout"
+            onClickHandler={() => {
+              localStorage.removeItem(STORAGE_KEY.TOKEN);
+              navigateTo("/login");
+            }}
+          />
         </div>
       </div>
     </div>

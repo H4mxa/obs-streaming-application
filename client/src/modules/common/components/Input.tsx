@@ -1,14 +1,12 @@
-import React, {
-  ChangeEventHandler,
-  FocusEventHandler,
-  useCallback,
-} from "react";
+import React, { ChangeEventHandler, useCallback } from "react";
+import "./style.css";
 
-interface IAuthInput {
+interface IInput {
   field: string;
   label: string;
   value: string;
   type: string;
+  textarea?: boolean;
   placeholder?: string;
   showErrorMessage: boolean;
   validationMessage: string;
@@ -16,11 +14,12 @@ interface IAuthInput {
   onBlurHandler: (event: string, field: string) => void;
 }
 
-const AuthInput: React.FC<IAuthInput> = ({
+const Input: React.FC<IInput> = ({
   field,
   label,
   value,
   type,
+  textarea,
   placeholder,
   showErrorMessage,
   validationMessage,
@@ -47,13 +46,27 @@ const AuthInput: React.FC<IAuthInput> = ({
         <span>{label}</span>
       </div>
 
-      <input
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={handleValueChange}
-        onBlur={handleInputBlur}
-      />
+      {textarea ? (
+        <textarea
+          typeof={type}
+          value={value}
+          placeholder={placeholder}
+          onChange={handleValueChange as any}
+          onBlur={handleInputBlur as any}
+          rows={5}
+          style={{
+            maxWidth: "400px",
+          }}
+        />
+      ) : (
+        <input
+          type={type}
+          value={value}
+          placeholder={placeholder}
+          onChange={handleValueChange}
+          onBlur={handleInputBlur}
+        />
+      )}
 
       <span className="auth-form-validation-message">
         {showErrorMessage && validationMessage}
@@ -62,4 +75,4 @@ const AuthInput: React.FC<IAuthInput> = ({
   );
 };
 
-export default AuthInput;
+export default Input;
