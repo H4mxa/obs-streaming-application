@@ -1,5 +1,12 @@
 import { Navigate } from "react-router-dom";
+import { STORAGE_KEY } from "../constants";
 
 export const AppLayout = () => {
-  return false ? <></> : <Navigate to="/login" replace />;
+  const token = localStorage.getItem(STORAGE_KEY.TOKEN);
+
+  return token ? (
+    <Navigate to={"/dashboard"} />
+  ) : (
+    <Navigate to="/login" replace />
+  );
 };

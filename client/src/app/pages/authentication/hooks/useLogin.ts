@@ -12,7 +12,7 @@ const initialState = {
     showError: false,
   },
   password: {
-    value: import.meta.env.MODE === "development" ? "123456" : "",
+    value: import.meta.env.MODE === "development" ? "123" : "",
     isValid: import.meta.env.MODE === "development" ? false : true,
     showError: false,
   },

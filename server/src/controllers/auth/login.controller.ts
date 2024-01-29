@@ -38,6 +38,7 @@ export class LoginController {
         );
 
         return response.status(200).json({
+          success: true,
           userDetails: {
             email,
             userName: user.username,

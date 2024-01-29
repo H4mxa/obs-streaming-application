@@ -9,7 +9,7 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const validatePassword = (password: string): boolean => {
-  const regex = /^\S{6,12}$/;
+  const regex = /^\S{3,12}$/;
   return regex.test(password);
 };
 
@@ -25,4 +25,4 @@ export const passwordConfValidationMessage = "Password do not match.";
 export const usernameValidationMessage =
   "Username should have between 3 and 8 characters. No space are allowed.";
 export const passwordValidationMessage =
-  "Please should have between 6 and 12 characters. No space are allowed.";
+  "Please should have between 3 and 12 characters. No space are allowed.";
