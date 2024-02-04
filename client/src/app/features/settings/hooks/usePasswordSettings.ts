@@ -1,13 +1,8 @@
 import { SyntheticEvent, useState } from "react";
-import { channelSettings } from "../core/constants";
 import { useEventCallback } from "modules/common/hooks";
-import {
-  validateAvatarUrl,
-  validateDescription,
-  validatePassword,
-  validateTitle,
-  validateUsername,
-} from "modules/validators";
+import { validatePassword } from "modules/validators";
+import { passwordService } from "services/password";
+import toast from "react-hot-toast";
 
 const usePasswordSettings = () => {
   const [formstate, setFormState] = useState({
@@ -56,8 +51,27 @@ const usePasswordSettings = () => {
     }
   );
 
-  const handleFormSubmit = useEventCallback((event: SyntheticEvent) => {
+  const handleFormSubmit = useEventCallback(async (event: SyntheticEvent) => {
     event.preventDefault();
+
+    try {
+      const payload = {
+        password: formstate.password.value,
+        newPassword: formstate.newPassword.value,
+      };
+
+      const result = passwordService.updatePassword(payload);
+      toast.promise(result, {
+        loading: "Loading",
+        success: "Password updated successfully",
+        error: (value) => {
+          return value?.message ?? "Something went wrong";
+        },
+      });
+    } catch (error: any) {
+      toast.error(error?.message ?? "Something went wrong");
+      throw error;
+    }
   });
 
   /*

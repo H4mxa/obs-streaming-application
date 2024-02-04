@@ -1,5 +1,5 @@
 interface ChannelDescriptionProps {
-  channelId: number;
+  channelId: number | string;
   title: string;
   description: string;
   username: string;

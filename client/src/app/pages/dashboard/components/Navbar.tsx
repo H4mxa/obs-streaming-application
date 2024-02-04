@@ -1,6 +1,7 @@
 import { navigateTo } from "app/route/utils";
 import Logo from "assets/logoPlaceholder.svg";
 import { STORAGE_KEY } from "modules/common/constants";
+import useUserDetail from "modules/common/hooks/useUserDetail";
 import { Navigate } from "react-router-dom";
 
 const NavLogo = () => {
@@ -26,22 +27,24 @@ const NavButton = ({
 };
 
 const Navbar = () => {
+  const { isLogged, logout } = useUserDetail();
+
   return (
     <div className="nav-container">
       <NavLogo />
       <div className="nav-buttons-container">
-        <NavButton text="Browse" onClickHandler={() => {}} />
-        <NavButton text="Login" onClickHandler={() => {}} />
-        <div>
-          <NavButton text="My Account" onClickHandler={() => {}} />
-          <NavButton
-            text="Logout"
-            onClickHandler={() => {
-              localStorage.removeItem(STORAGE_KEY.TOKEN);
-              navigateTo("/login");
-            }}
-          />
-        </div>
+        <NavButton text="Browse" onClickHandler={() => navigateTo("/")} />
+        {!isLogged ? (
+          <NavButton text="Login" onClickHandler={() => navigateTo("/login")} />
+        ) : (
+          <div>
+            <NavButton
+              text="My Account"
+              onClickHandler={() => navigateTo("/settings")}
+            />
+            <NavButton text="Logout" onClickHandler={logout} />
+          </div>
+        )}
       </div>
     </div>
   );

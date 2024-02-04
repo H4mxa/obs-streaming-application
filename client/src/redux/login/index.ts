@@ -2,10 +2,12 @@ import { ILoginState, loginPayload } from "./types";
 import { createSlice } from "utils/@reduxjs/toolkit";
 import { useInjectReducer, useInjectSaga } from "utils/redux-injectors";
 import loginSaga from "./sagas";
+import { AuthenticationHelper } from "modules/helper/authentication";
 
 const initialState: ILoginState = {
   loading: false,
   token: null,
+  isLoggedIn: AuthenticationHelper.isLoggedIn(),
 };
 
 // slice
@@ -13,11 +15,14 @@ export const slice = createSlice({
   name: "login",
   initialState,
   reducers: {
+    processInitApp: () => {},
+
     processUserLogin: (state, { payload }: loginPayload) => {
       state.loading = true;
     },
     processUserLoginSuccess: (state) => {
       state.loading = false;
+      state.isLoggedIn = true;
     },
     processUserLoginFailed: (state) => {
       state.loading = false;
@@ -25,6 +30,7 @@ export const slice = createSlice({
 
     logout(state) {
       state.token = null;
+      state.isLoggedIn = false;
     },
   },
 });

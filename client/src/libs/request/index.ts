@@ -66,14 +66,14 @@ async function checkUnauthorizedToken(response: any) {
       default:
         return null;
     }
-    AuthenticationHelper.logout();
 
+    AuthenticationHelper.logout();
     /**
      * TODO: Remove persisted deltails if any
      ** Dependencey: on ReduxPersist functionality
      */
     store.dispatch({ type: loginActions.logout.type });
-    await navigateTo("/login?invalidToken=1", {
+    await navigateTo("/login", {
       replace: true,
     });
     return null;
@@ -92,7 +92,6 @@ async function checkStatus(response: any) {
     return response;
   }
   await checkUnauthorizedToken(response);
-
   throw response;
   // if (response.error || response.errors) {
   //   throw response;

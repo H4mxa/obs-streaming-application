@@ -16,8 +16,9 @@
   font-size: 16px;
 }
 
-.settings-form input {
-  padding: 0px 5px;
+.settings-form input,
+textarea {
+  padding: 5px 5px;
 }
 
 .settings-form button {

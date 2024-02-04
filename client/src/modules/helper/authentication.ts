@@ -1,15 +1,15 @@
-const TOKEN_PREFIX: string = "token";
+import { STORAGE_KEY } from "modules/common/constants";
+
 const LOGIN_STATUS_PREFIX: string = "login";
 export const AuthenticationHelper = {
   saveToken: (token: string): void => {
-    localStorage.setItem(TOKEN_PREFIX, token);
+    localStorage.setItem(STORAGE_KEY.TOKEN, token);
   },
   getToken: (): string | null => {
-    return localStorage.getItem(TOKEN_PREFIX) || null;
+    return localStorage.getItem(STORAGE_KEY.TOKEN) || null;
   },
   logout: (): void => {
-    localStorage.removeItem("currentView");
-    localStorage.removeItem(TOKEN_PREFIX);
+    localStorage.removeItem(STORAGE_KEY.TOKEN);
     AuthenticationHelper.removeLoginStatus();
   },
   isLoggedIn: (): boolean => {

@@ -1,18 +1,32 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Inputs, channelSettings } from "../core/constants";
 import Input from "modules/common/components/Input";
-import useSettings from "../hooks/useSettings";
+import useSettings, {
+  settingsFormStateTypes,
+} from "../hooks/useChannelSettings";
 import { execFunc } from "modules/common/method";
 
-const ChannelSettings = ({
-  settings,
-}: {
-  settings: typeof channelSettings;
-}) => {
-  const { formstate, settingsActions, isSubmitButtonDisabled } = useSettings({
-    settings,
-  });
+interface ChannelSettingsProps {
+  formstate: settingsFormStateTypes;
+  isSubmitButtonDisabled: boolean;
+  handleFormSubmit: () => void;
+  handleInputValueChange: (
+    field: keyof settingsFormStateTypes,
+    value: string
+  ) => void;
+  handleInputValidationOnBlur: (
+    field: keyof settingsFormStateTypes,
+    value: string
+  ) => void;
+}
 
+const ChannelSettings: React.FC<ChannelSettingsProps> = ({
+  formstate,
+  isSubmitButtonDisabled,
+  handleFormSubmit,
+  handleInputValueChange,
+  handleInputValidationOnBlur,
+}) => {
   return (
     <form className="settings-form">
       {Inputs.map((input) => {
@@ -24,14 +38,14 @@ const ChannelSettings = ({
             value={formstate[input.field as keyof typeof formstate].value}
             onChangeHandler={(text, field) =>
               execFunc(
-                settingsActions.handleInputValueChange,
+                handleInputValueChange,
                 field as keyof typeof formstate,
                 text
               )
             }
             onBlurHandler={(text, field) =>
               execFunc(
-                settingsActions.handleInputValidationOnBlur,
+                handleInputValidationOnBlur,
                 field as keyof typeof formstate,
                 text
               )
@@ -46,10 +60,7 @@ const ChannelSettings = ({
         );
       })}
 
-      <button
-        onClick={settingsActions.handleFormSubmit}
-        disabled={isSubmitButtonDisabled}
-      >
+      <button onClick={handleFormSubmit} disabled={isSubmitButtonDisabled}>
         Save Changes
       </button>
     </form>

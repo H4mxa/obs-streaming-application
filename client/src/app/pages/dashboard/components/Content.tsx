@@ -1,5 +1,5 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import Channels from "app/features/channels";
+import { Outlet, useParams } from "react-router-dom";
 
 const Content = () => {
   return (

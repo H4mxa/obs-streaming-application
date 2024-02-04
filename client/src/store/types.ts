@@ -1,3 +1,4 @@
+import { IChannelSlice } from "redux/channel/types";
 import { ILoginState } from "redux/login/types";
 import { IRegisterState } from "redux/register/types";
 
@@ -8,4 +9,5 @@ import { IRegisterState } from "redux/register/types";
 export interface RootState {
   login?: ILoginState;
   register?: IRegisterState;
+  channel?: IChannelSlice;
 }

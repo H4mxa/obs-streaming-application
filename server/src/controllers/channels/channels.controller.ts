@@ -28,7 +28,10 @@ export class ChannelsController {
       if (channelId && channelId.match(/^[0-9a-fA-F]{24}$/)) {
         channel = await Channel.findById(channelId);
       } else {
-        return response.status(400).send("Invalid argument");
+        return response.status(400).json({
+          success: false,
+          message: "Channel not found. Please check your channel url",
+        });
       }
 
       if (!channel || !channel.isActive) {
@@ -56,7 +59,10 @@ export class ChannelsController {
       });
     } catch (err) {
       logger.error(err);
-      return response.status(500).send("Something went wrong");
+      return response.status(500).json({
+        success: false,
+        message: "Channel not found. Please check your channel url",
+      });
     }
   }
 
@@ -152,9 +158,7 @@ export class ChannelsController {
 
       return response.status(200).json({
         success: true,
-        data: {
-          followedChannels: userData?.followedChannels,
-        },
+        followedChannels: userData?.followedChannels,
       });
     } catch (err) {
       logger.error(err);

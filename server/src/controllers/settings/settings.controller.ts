@@ -35,15 +35,12 @@ export class Settings {
       }).populate("channel");
 
       return response.status(200).json({
-        message: "success",
-        data: {
-          id: userData?._id,
-          username: userData?.username,
-          title: userData?.channel?.title,
-          description: userData?.channel?.description,
-          avatarUrl: userData?.channel?.avatarUrl,
-          streamKey: userData?.channel?.streamKey,
-        },
+        id: userData?._id,
+        username: userData?.username,
+        title: userData?.channel?.title,
+        description: userData?.channel?.description,
+        avatarUrl: userData?.channel?.avatarUrl,
+        streamKey: userData?.channel?.streamKey,
       });
     } catch (err) {
       logger.error(err);
@@ -91,13 +88,11 @@ export class Settings {
 
       return response.status(201).json({
         message: "success",
-        data: {
-          username,
-          title: channelData?.title,
-          description: channelData?.description,
-          avatarUrl: channelData?.avatarUrl,
-          channelId: channelData?._id,
-        },
+        username,
+        title: channelData?.title,
+        description: channelData?.description,
+        avatarUrl: channelData?.avatarUrl,
+        channelId: channelData?._id,
       });
     } catch (error) {
       logger.error(error);
@@ -124,7 +119,10 @@ export class Settings {
       });
 
       if (!isPasswordCorrect) {
-        return response.status(400).send("Invalid password. Please try again");
+        return response.status(400).send({
+          success: false,
+          message: "Invalid password. Please try again",
+        });
       }
 
       const ecryptedPassword = hashPassword(newPassword);

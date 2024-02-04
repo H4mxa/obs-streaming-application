@@ -1,11 +1,11 @@
 interface StreamKeyProps {
-  streamKey: string;
+  streamKey: string | null | undefined;
 }
 
 const StreamKey: React.FC<StreamKeyProps> = ({ streamKey }) => {
   return (
     <div className="settings-stream-key-container">
-      <span>{streamKey}</span>
+      <span>{streamKey ?? ""}</span>
     </div>
   );
 };

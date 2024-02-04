@@ -1,11 +1,12 @@
 import { Outlet, useParams } from "react-router-dom";
 import ChannelCard from "./components/ChannelCard";
-import { dummyChannels } from "./core/constants";
-
+import useChannel from "./hooks/useChannel";
+import { navigateTo } from "app/route/utils";
 import "./styles.css";
 
 const Channels = () => {
   let { id } = useParams();
+  const { channels } = useChannel();
 
   return (
     <>
@@ -15,18 +16,19 @@ const Channels = () => {
         </div>
       ) : (
         <div className="channels-container">
-          {dummyChannels.map((channel) => {
-            return (
-              <ChannelCard
-                key={channel.id}
-                title={channel.title}
-                username={channel.username}
-                isOnline={channel.isOnline}
-                navigateToChannelHandler={() => {}}
-                avatarUrl={channel.avatarUrl}
-              />
-            );
-          })}
+          {channels &&
+            channels.map((channel) => {
+              return (
+                <ChannelCard
+                  key={channel.id}
+                  title={channel.title}
+                  username={channel.username}
+                  isOnline={channel.isOnline}
+                  navigateToChannelHandler={() => navigateTo(`${channel.id}`)}
+                  avatarUrl={channel.avatarUrl}
+                />
+              );
+            })}
         </div>
       )}
     </>

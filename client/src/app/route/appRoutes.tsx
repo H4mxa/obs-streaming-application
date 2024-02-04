@@ -12,13 +12,9 @@ const Router = createBrowserRouter([
   {
     path: "/",
     element: <DashboardPage />,
-    loader: () => {
-      const token = localStorage.getItem(STORAGE_KEY.TOKEN);
-      return token ? true : false;
-    },
     children: [
       {
-        path: "channels",
+        path: "/",
         element: <Channels />,
         children: [
           {
@@ -27,6 +23,10 @@ const Router = createBrowserRouter([
           },
         ],
       },
+      // {
+      //   path: ":id",
+      //   element: <ChannelView />,
+      // },
       {
         path: "settings",
         element: <Settings />,
