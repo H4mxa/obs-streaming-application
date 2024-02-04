@@ -4,7 +4,7 @@ import User from "../../models/user/user.model";
 import { logger } from "../../server";
 import channelModel from "../../models/channel/channel.model";
 import userModel from "../../models/user/user.model";
-
+import axios from "axios";
 interface IPostFollowChannelRequest extends Request {
   user?: any;
 }
@@ -46,8 +46,21 @@ export class ChannelsController {
       );
 
       const streamUrl = `http://localhost:8001/live/${channel.streamKey}.flv`;
+      const requestData = await axios.get("http://localhost:8001/api/streams");
+      const activeStreams = requestData.data;
 
-      const isOnline = false;
+      let liveStreams: any = [];
+
+      for (const streamId in activeStreams?.live) {
+        if (
+          activeStreams.live[streamId].publisher &&
+          activeStreams.live[streamId].publisher !== null
+        ) {
+          liveStreams.push(streamId);
+        }
+      }
+
+      const isOnline = liveStreams.includes(channel.streamKey);
 
       return response.status(200).json({
         id: channel._id,
@@ -76,6 +89,20 @@ export class ChannelsController {
         }
       ).populate("channel");
 
+      const requestData = await axios.get("http://localhost:8001/api/streams");
+      const activeStreams = requestData.data;
+
+      let liveStreams: any = [];
+
+      for (const streamId in activeStreams?.live) {
+        if (
+          activeStreams.live[streamId].publisher &&
+          activeStreams.live[streamId].publisher !== null
+        ) {
+          liveStreams.push(streamId);
+        }
+      }
+
       const channels = user
         .filter((u: any) => u.channel.isActive)
         .map((_user: any) => {
@@ -83,7 +110,7 @@ export class ChannelsController {
             id: _user.channel._id,
             title: _user.channel.title,
             avatarUrl: _user.channel.avatarUrl,
-            isOnline: false,
+            isOnline: liveStreams.includes(_user.channel.streamKey),
             username: _user.username,
           };
         });
