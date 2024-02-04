@@ -45,7 +45,7 @@ export class ChannelsController {
         }
       );
 
-      const streamUrl = "http";
+      const streamUrl = `http://localhost:8001/live/${channel.streamKey}.flv`;
 
       const isOnline = false;
 

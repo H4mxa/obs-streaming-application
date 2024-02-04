@@ -4,6 +4,7 @@ import Chat from "./component/Chat";
 import { dummyChannel } from "./core/constants";
 import useChannelDetails from "./hooks/useChannelDetails";
 import "./styles.css";
+import Stream from "./component/Stream";
 
 const ChannelView = () => {
   const {
@@ -21,9 +22,13 @@ const ChannelView = () => {
   return (
     <div className="channel-container">
       <div className="channel-video-description-section">
-        <div className="channel-offline-placeholder">
-          <span> Channel is offline </span>
-        </div>
+        {getChannelDetails?.streamUrl ? (
+          <Stream streamUrl={getChannelDetails.streamUrl} />
+        ) : (
+          <div className="channel-offline-placeholder">
+            <span> Channel is offline </span>
+          </div>
+        )}
         {getChannelDetails ? (
           <ChannelDescription
             loading={loading}
