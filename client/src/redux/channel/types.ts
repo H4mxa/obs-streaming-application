@@ -1,5 +1,6 @@
 export interface IChannelSlice {
   loading: boolean;
+  followedChannelLoading: boolean;
   channels: IChannel[] | null;
   channelSettings: IChannelSettings | null;
   followedChannel: string[] | null;

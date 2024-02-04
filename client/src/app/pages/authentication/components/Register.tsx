@@ -80,9 +80,9 @@ const Register: React.FC<IRegister> = ({ switchAuthHandler }) => {
         />
         <button
           disabled={isButtonDisabled}
-          onClick={registerActions.handleLogin}
+          onClick={registerActions.handleRegister}
         >
-          Register in
+          Register
         </button>
       </form>
 

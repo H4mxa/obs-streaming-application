@@ -31,6 +31,7 @@ const useLogin = () => {
 
   const handleInputValueChange = useEventCallback(
     (key: keyof loginStateTypes, value: string) => {
+      handleInputValidationOnBlur(key, value);
       setState((prevState) => ({
         ...prevState,
         [key]: {

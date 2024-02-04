@@ -39,4 +39,8 @@ export const omit = <T extends Record<string, any>, k extends keyof T>(
   return result;
 };
 
-export const logout = () => {};
+export const wait = (ms: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+};

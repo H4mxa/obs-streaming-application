@@ -6,6 +6,7 @@ import {
   emailValidationMessage,
   passwordValidationMessage,
 } from "modules/validators";
+import { execFunc } from "modules/common/method";
 
 interface ILogin {
   switchAuthHandler: () => void;
@@ -14,10 +15,12 @@ interface ILogin {
 const Login: React.FC<ILogin> = ({ switchAuthHandler }) => {
   const { state, loginActions, isButtonDisabled } = useLogin();
 
+  console.count("render");
+
   return (
     <div className="login-container">
       <Logo text="Login to Twitch" />
-      <form className="auth-form">
+      <form className="auth-form" onSubmit={loginActions.handleLogin}>
         <Input
           field="email"
           label="Email"
@@ -46,9 +49,7 @@ const Login: React.FC<ILogin> = ({ switchAuthHandler }) => {
             loginActions.handleInputValidationOnBlur("password", value)
           }
         />
-        <button disabled={!isButtonDisabled} onClick={loginActions.handleLogin}>
-          Log in
-        </button>
+        <button disabled={isButtonDisabled}>Log in</button>
       </form>
 
       <span className="auth-form-switch-label" onClick={switchAuthHandler}>

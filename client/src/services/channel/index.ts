@@ -56,4 +56,16 @@ export const channelService = {
 
     return request(url, null, headerOpt as any);
   },
+
+  postFollowChannel: ({ body }: { body: { channelId: string } }) => {
+    let url = `${import.meta.env.API_BASE_URL}${API_URLS.followChannel}`;
+
+    const headerOpt = {
+      method: "POST",
+      contentType: "application/json",
+      token: localStorage.getItem(STORAGE_KEY.TOKEN),
+    };
+
+    return request(url, body, headerOpt as any);
+  },
 };

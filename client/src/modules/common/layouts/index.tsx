@@ -4,9 +4,5 @@ import { STORAGE_KEY } from "../constants";
 export const AppLayout = () => {
   const token = localStorage.getItem(STORAGE_KEY.TOKEN);
 
-  return token ? (
-    <Navigate to={"/dashboard"} />
-  ) : (
-    <Navigate to="/login" replace />
-  );
+  return token ? <Navigate to={"/"} /> : <Navigate to="/login" replace />;
 };

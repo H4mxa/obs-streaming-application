@@ -5,6 +5,7 @@ import channelSaga from "./sagas";
 
 const initialState: IChannelSlice = {
   loading: false,
+  followedChannelLoading: false,
   channels: null,
   channelSettings: null,
   followedChannel: null,
@@ -50,16 +51,16 @@ export const slice = createSlice({
     },
 
     processFollowedChannel: (state) => {
-      state.loading = true;
+      state.followedChannelLoading = true;
     },
 
     processFollowedChannelSuccess: (state, action) => {
       state.followedChannel = action.payload;
-      state.loading = false;
+      state.followedChannelLoading = false;
     },
 
     processFollowedChannelFailed: (state) => {
-      state.loading = false;
+      state.followedChannelLoading = false;
     },
 
     processUpdateChannelSettings: (

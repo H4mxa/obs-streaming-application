@@ -1,4 +1,11 @@
-import { StrictEffect, all, call, put, takeLatest } from "redux-saga/effects";
+import {
+  StrictEffect,
+  all,
+  call,
+  put,
+  takeEvery,
+  takeLatest,
+} from "redux-saga/effects";
 import { loginActions } from ".";
 import { LoginService } from "services/login";
 import { navigateTo } from "app/route/utils";
@@ -13,9 +20,7 @@ interface body {
   password: string;
 }
 
-function* watchUserLoginProcess(action: {
-  payload: loginPayload["payload"];
-}): Generator<StrictEffect, void, any> {
+function* watchUserLoginProcess(action: any): any {
   try {
     const result = yield call(LoginService.doLogin, action.payload);
     if (result && result.status >= 200 && result.status < 300 && result.data) {
@@ -35,7 +40,7 @@ function* watchUserLoginProcess(action: {
       navigateTo("/");
     }
   } catch (error) {
-    throw error;
+    yield put(loginActions.processUserLoginFailed());
   }
 }
 

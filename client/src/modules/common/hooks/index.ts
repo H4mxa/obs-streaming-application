@@ -1,9 +1,39 @@
-import React, { useCallback, useLayoutEffect, useRef } from "react";
+import React, {
+  SetStateAction,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 const useForceUpdate = () => {
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   return forceUpdate;
 };
+
+export type UseBooleanActions = {
+  setValue: React.Dispatch<SetStateAction<boolean>>;
+  toggle: () => void;
+  setTrue: () => void;
+  setFalse: () => void;
+};
+
+type UseBoolean = [boolean, UseBooleanActions];
+function useBoolean(initial: boolean): UseBoolean {
+  const [value, setValue] = useState<boolean>(initial);
+
+  const toggle = useCallback(() => setValue((v) => !v), []);
+  const setTrue = useCallback(() => setValue(true), []);
+  const setFalse = useCallback(() => setValue(false), []);
+
+  const actions = useMemo(
+    () => ({ setValue, toggle, setTrue, setFalse }),
+    [setFalse, setTrue, toggle]
+  );
+
+  return useMemo(() => [value, actions], [actions, value]);
+}
 
 /**
  * @description Like 'useCallback' but with empty deps array.
@@ -38,4 +68,4 @@ const useEventCallback = <Fn extends (...args: any[]) => ReturnType<Fn>>(
   return callbackMemoized;
 };
 
-export { useForceUpdate, useEventCallback };
+export { useBoolean, useForceUpdate, useEventCallback };

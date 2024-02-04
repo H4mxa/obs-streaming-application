@@ -111,7 +111,7 @@ const useRegister = () => {
     }
   );
 
-  const handleLogin = useEventCallback((event: SyntheticEvent) => {
+  const handleRegister = useEventCallback((event: SyntheticEvent) => {
     event.preventDefault();
     const payload = {
       email: state.email.value,
@@ -123,7 +123,7 @@ const useRegister = () => {
   });
 
   const registerActions = {
-    handleLogin,
+    handleRegister,
     handleInputValueChange,
     handleInputValidationOnBlur,
   };

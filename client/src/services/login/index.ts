@@ -10,7 +10,6 @@ export const LoginService = {
       method: "POST",
       contentType: "application/json",
     };
-
     const promise = request(url, body, headerOpt);
 
     toast.promise(promise, {

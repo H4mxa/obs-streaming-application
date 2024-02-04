@@ -103,22 +103,3 @@
   top: 50px;
   overflow-x: hidden;
 }
-
-.channel-follow-button {
-  height: 30px;
-  width: 120px;
-  margin-left: 15px;
-  background-color: #772ce8;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.channel-follow-button:hover {
-  opacity: 0.7;
-}
-
-.channel-follow-button:disabled {
-  opacity: 0.3;
-}

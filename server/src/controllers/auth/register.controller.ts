@@ -24,7 +24,10 @@ export class RegisterController {
       const userExists = await userModel.exists({ email });
 
       if (userExists) {
-        return response.status(409).send("E-mail is already in use");
+        return response.status(409).json({
+          success: false,
+          message: "E-mail is already in use",
+        });
       }
 
       const encryptPassword = hashPassword(password);
@@ -50,6 +53,8 @@ export class RegisterController {
       );
 
       return response.status(201).json({
+        success: true,
+        message: "User created successfully",
         userDetails: {
           email,
           username,

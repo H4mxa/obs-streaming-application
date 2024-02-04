@@ -6,7 +6,13 @@ import useChannelDetails from "./hooks/useChannelDetails";
 import "./styles.css";
 
 const ChannelView = () => {
-  const { getChannelDetails, getChannelLoading } = useChannelDetails();
+  const {
+    loading,
+    getIsLoggedIn,
+    getChannelDetails,
+    getChannelLoading,
+    channelDetailsActions,
+  } = useChannelDetails();
 
   if (getChannelLoading) {
     return <LoadingSpinner />;
@@ -20,10 +26,15 @@ const ChannelView = () => {
         </div>
         {getChannelDetails ? (
           <ChannelDescription
+            loading={loading}
             channelId={getChannelDetails.id}
             username={getChannelDetails.username}
             description={getChannelDetails.description}
             title={getChannelDetails.title}
+            isLoggedIn={getIsLoggedIn}
+            handleFollowChannel={(id) =>
+              channelDetailsActions.handleFollowChannel(id)
+            }
           />
         ) : null}
       </div>

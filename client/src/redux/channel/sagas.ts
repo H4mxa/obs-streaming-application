@@ -37,7 +37,6 @@ function* watchChannelSettingsProcess(action: {}): Generator<
 function* watchUpdateChannelSettingsProcess(action: {
   payload: updateChannelSettingsPayloadTypes;
 }): Generator<StrictEffect, void, any> {
-  debugger;
   try {
     const result = yield call(
       channelService.updateChannelSettings,
