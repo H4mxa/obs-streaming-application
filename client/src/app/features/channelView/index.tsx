@@ -5,6 +5,7 @@ import { dummyChannel } from "./core/constants";
 import useChannelDetails from "./hooks/useChannelDetails";
 import "./styles.css";
 import Stream from "./component/Stream";
+import { useEffect } from "react";
 
 const ChannelView = () => {
   const {
@@ -22,7 +23,7 @@ const ChannelView = () => {
   return (
     <div className="channel-container">
       <div className="channel-video-description-section">
-        {getChannelDetails?.streamUrl ? (
+        {getChannelDetails?.isOnline ? (
           <Stream streamUrl={getChannelDetails.streamUrl} />
         ) : (
           <div className="channel-offline-placeholder">

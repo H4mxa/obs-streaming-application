@@ -17,3 +17,5 @@ const config = {
 var nms = new NodeMediaServer(config);
 
 nms.run();
+
+// http://localhost:8001/admin/

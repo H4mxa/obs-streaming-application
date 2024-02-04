@@ -18,6 +18,7 @@ const ChannelAvatar: React.FC<Pick<ChannelCardProps, "avatarUrl">> = ({
         alt="channel_avatar"
         width={"100%"}
         height={"100%"}
+        style={{ maxHeight: "220px", minHeight: "220px" }}
       />
     </div>
   );

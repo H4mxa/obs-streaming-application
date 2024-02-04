@@ -24,11 +24,11 @@ const useChannelDetails = () => {
   const isMounted = useRef(false);
 
   useEffect(() => {
-    if (!getChannelDetails && !isMounted.current) {
-      dispatch(channelActions.processChannelDetails(id));
-      isMounted.current = true;
-    }
-  }, [getChannelDetails]);
+    // if (!getChannelDetails && !isMounted.current) {
+    dispatch(channelActions.processChannelDetails(id));
+    //   isMounted.current = true;
+    // }
+  }, []);
 
   const handleFollowChannel = useEventCallback(async (id: string) => {
     try {
