@@ -5,7 +5,6 @@ import { dummyChannel } from "./core/constants";
 import useChannelDetails from "./hooks/useChannelDetails";
 import "./styles.css";
 import Stream from "./component/Stream";
-import { useEffect } from "react";
 
 const ChannelView = () => {
   const {
@@ -44,7 +43,7 @@ const ChannelView = () => {
           />
         ) : null}
       </div>
-      <Chat />
+      <Chat channelId={getChannelDetails?.id ?? ""} />
     </div>
   );
 };

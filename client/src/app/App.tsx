@@ -3,7 +3,7 @@ import Navigation from "./route";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Toaster } from "react-hot-toast";
-
+import "./styles.css";
 function App() {
   return (
     <Provider store={store}>
