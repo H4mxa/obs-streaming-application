@@ -1,12 +1,12 @@
 import dotenv from "dotenv";
 
 import { app, logger } from "./server";
-import { getMongoURI, getPort } from "./utils/env";
+import { getMongoURI } from "./utils/env";
 import mongoose from "mongoose";
 
 dotenv.config();
 
-const port = getPort();
+const port = process.env.PORT || 3000;
 
 mongoose
   .connect(getMongoURI())
