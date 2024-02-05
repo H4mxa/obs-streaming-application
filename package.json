@@ -2,8 +2,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "cd ./server && rimraf build && tsc",
-    "dev": "npm build --prefix server"
+    "start": "npm start --prefix server"
   },
   "devDependencies": {}
 }
