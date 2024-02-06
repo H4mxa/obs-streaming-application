@@ -1,5 +1,7 @@
+import { STORAGE_KEY } from "modules/common/constants";
 import { useBoolean, useEventCallback } from "modules/common/hooks";
-import { useEffect, useRef } from "react";
+import { AuthenticationHelper } from "modules/helper/authentication";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -21,7 +23,6 @@ const useChannelDetails = () => {
 
   const { id } = useParams();
   // ref
-  const isMounted = useRef(false);
 
   useEffect(() => {
     // if (!getChannelDetails && !isMounted.current) {
@@ -55,6 +56,8 @@ const useChannelDetails = () => {
 
   return {
     loading,
+    userDetails: getIsLoggedIn ? AuthenticationHelper.getUserDetails() : {},
+    channelId: id,
     getIsLoggedIn,
     getChannelLoading,
     getChannelDetails,

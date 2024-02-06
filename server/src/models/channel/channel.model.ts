@@ -14,7 +14,7 @@ const channelSchema = new Schema({
   avatarUrl: { type: String, default: "none" },
   streamKey: { type: String, default: uuid },
   messages: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Message " }],
+    type: [{ type: Schema.Types.ObjectId, ref: "Message" }],
     default: [],
   },
 });

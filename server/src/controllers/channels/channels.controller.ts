@@ -46,8 +46,15 @@ export class ChannelsController {
       );
 
       const streamUrl = `http://localhost:8001/live/${channel.streamKey}.flv`;
-      const requestData = await axios.get("http://localhost:8001/api/streams");
-      const activeStreams = requestData.data;
+
+      let requestData;
+      try {
+        requestData = await axios.get("http://localhost:8001/api/streams");
+      } catch (_e) {
+        requestData = null;
+      }
+
+      const activeStreams = requestData?.data;
 
       let liveStreams: any = [];
 
@@ -89,17 +96,26 @@ export class ChannelsController {
         }
       ).populate("channel");
 
-      const requestData = await axios.get("http://localhost:8001/api/streams");
-      const activeStreams = requestData.data;
+      let requestData;
+
+      try {
+        requestData = await axios.get("http://localhost:8001/api/streams");
+      } catch (e) {
+        requestData = null;
+      }
+
+      const activeStreams = requestData?.data;
 
       let liveStreams: any = [];
 
-      for (const streamId in activeStreams?.live) {
-        if (
-          activeStreams.live[streamId].publisher &&
-          activeStreams.live[streamId].publisher !== null
-        ) {
-          liveStreams.push(streamId);
+      if (activeStreams) {
+        for (const streamId in activeStreams?.live) {
+          if (
+            activeStreams.live[streamId].publisher &&
+            activeStreams.live[streamId].publisher !== null
+          ) {
+            liveStreams.push(streamId);
+          }
         }
       }
 

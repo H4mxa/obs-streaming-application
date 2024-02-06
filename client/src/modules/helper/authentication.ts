@@ -24,4 +24,11 @@ export const AuthenticationHelper = {
   removeLoginStatus: () => {
     return localStorage.removeItem(LOGIN_STATUS_PREFIX);
   },
+  getUserDetails: () => {
+    const userDetails = localStorage.getItem(STORAGE_KEY.USER_DETAILS);
+
+    if (userDetails) {
+      return JSON.parse(userDetails);
+    }
+  },
 };

@@ -1,7 +1,6 @@
 import LoadingSpinner from "modules/common/components/LoadingSpinner";
 import ChannelDescription from "./component/ChannelDescription";
 import Chat from "./component/Chat";
-import { dummyChannel } from "./core/constants";
 import useChannelDetails from "./hooks/useChannelDetails";
 import "./styles.css";
 import Stream from "./component/Stream";
@@ -9,6 +8,8 @@ import Stream from "./component/Stream";
 const ChannelView = () => {
   const {
     loading,
+    channelId,
+    userDetails,
     getIsLoggedIn,
     getChannelDetails,
     getChannelLoading,
@@ -43,7 +44,13 @@ const ChannelView = () => {
           />
         ) : null}
       </div>
-      <Chat channelId={getChannelDetails?.id ?? ""} />
+      {channelId && (
+        <Chat
+          channelId={channelId}
+          username={userDetails.userName ?? ""}
+          isLoggedIn={getIsLoggedIn ?? false}
+        />
+      )}
     </div>
   );
 };

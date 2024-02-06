@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
 interface INewMessagesInputProps {
-  sendMessage: () => void;
+  sendMessage: (message: string) => void;
 }
 
 const NewMessageInput: React.FC<INewMessagesInputProps> = ({ sendMessage }) => {
@@ -11,10 +11,10 @@ const NewMessageInput: React.FC<INewMessagesInputProps> = ({ sendMessage }) => {
     setMessageContent(e.target.value);
   };
 
-  const handleSendMessage = useCallback(() => {
-    sendMessage();
+  const handleSendMessage = () => {
+    sendMessage(messageContent);
     setMessageContent("");
-  }, []);
+  };
 
   const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
@@ -23,7 +23,7 @@ const NewMessageInput: React.FC<INewMessagesInputProps> = ({ sendMessage }) => {
   };
 
   return (
-    <div className="chat-message-input-container" onClick={handleSendMessage}>
+    <div className="chat-message-input-container">
       <input
         type="text"
         className="chat-message-input"

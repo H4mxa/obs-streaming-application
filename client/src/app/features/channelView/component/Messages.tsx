@@ -27,12 +27,8 @@ const Message: React.FC<IMessageProps> = ({ author, content }) => {
 const Messages: React.FC<IMessagesProps> = ({ messages }) => {
   return (
     <div className="chat-messages-container">
-      {messages.map((message) => (
-        <Message
-          key={message.id}
-          author={message.author}
-          content={message.content}
-        />
+      {messages.map((message, idx) => (
+        <Message key={idx} author={message.author} content={message.content} />
       ))}
     </div>
   );
