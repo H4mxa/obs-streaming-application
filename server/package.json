@@ -1,7 +1,7 @@
 {
-  "name": "promise-project-api",
+  "name": "obs-streaming-api",
   "version": "1.0.0",
-  "description": "An Express.js boilerplate backend",
+  "description": "obs-streaming-api",
   "main": "index.ts",
   "scripts": {
     "dev": "nodemon",

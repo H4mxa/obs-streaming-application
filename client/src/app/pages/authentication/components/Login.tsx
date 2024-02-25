@@ -15,8 +15,6 @@ interface ILogin {
 const Login: React.FC<ILogin> = ({ switchAuthHandler }) => {
   const { state, loginActions, isButtonDisabled } = useLogin();
 
-  console.count("render");
-
   return (
     <div className="login-container">
       <Logo text="Login to Twitch" />

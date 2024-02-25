@@ -1,8 +1,21 @@
 {
-  "author": "",
+  "author": "h4mxa",
   "license": "ISC",
   "scripts": {
-    "start": "npm dev --prefix server"
+    "install-server": "npm install --prefix server",
+    "install-client": "npm install --prefix client",
+    "install-rtmp": "npm install --prefix rtmp-server",
+    "install": "npm run install-server && npm run install-client && npm run install-rtmp",
+    "server": "npm run-script dev --prefix server",
+    "client": "npm run-script dev --prefix client",
+    "rtmp-server": "npm run-script start --prefix rtmp-server",
+    "watch": "concurrently \"npm run server\" \"npm run client\" \"npm run rtmp-server\""
   },
-  "devDependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/H4mxa/obs-streaming-application"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.2"
+  }
 }
