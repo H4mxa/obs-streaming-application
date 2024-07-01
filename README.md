@@ -105,7 +105,3 @@ Special thanks to the contributors and developers of the libraries and framework
 For any inquiries or support, you can reach out to the project owner [here](https://github.com/H4mxa).
 
 Thank you for using the OBS Streaming and Chat Application! We hope you enjoy streaming and engaging with your audience.
-
---- 
-
-This format provides a clear structure for users to navigate through different sections of the README file. Each section provides essential information about the project, including setup instructions, usage guidelines, contribution guidelines, licensing information, acknowledgements, and contact details.
